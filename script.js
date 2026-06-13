@@ -274,24 +274,28 @@ function initSkillsCanvas() {
     height = canvas.height = canvas.offsetHeight;
   });
 
-  // Nodes for core skills
+  // Nodes for core skills (matching resume tech stack)
   const skillsData = [
-    { label: 'React', category: 'web', size: 14 },
+    { label: 'JavaScript', category: 'lang', size: 16 },
+    { label: 'Python', category: 'lang', size: 15 },
+    { label: 'Kotlin', category: 'lang', size: 14 },
+    { label: 'C', category: 'lang', size: 12 },
+    { label: 'React.js', category: 'web', size: 15 },
+    { label: 'HTML5', category: 'web', size: 13 },
+    { label: 'CSS3', category: 'web', size: 13 },
+    { label: 'Tailwind CSS', category: 'web', size: 12 },
     { label: 'Node.js', category: 'web', size: 15 },
-    { label: 'TypeScript', category: 'web', size: 13 },
-    { label: 'Python', category: 'lang', size: 16 },
-    { label: 'C++', category: 'lang', size: 14 },
-    { label: 'Java', category: 'lang', size: 13 },
-    { label: 'SQL', category: 'core', size: 12 },
+    { label: 'Express.js', category: 'web', size: 13 },
+    { label: 'REST APIs', category: 'web', size: 13 },
+    { label: 'MongoDB', category: 'core', size: 14 },
+    { label: 'Firebase', category: 'core', size: 13 },
+    { label: 'MySQL', category: 'core', size: 12 },
+    { label: 'Git', category: 'tools', size: 13 },
+    { label: 'GitHub', category: 'tools', size: 13 },
+    { label: 'Android Studio', category: 'tools', size: 12 },
+    { label: 'Postman', category: 'tools', size: 11 },
     { label: 'Docker', category: 'tools', size: 12 },
-    { label: 'Git', category: 'tools', size: 12 },
-    { label: 'Linux', category: 'core', size: 13 },
-    { label: 'Next.js', category: 'web', size: 14 },
-    { label: 'MongoDB', category: 'core', size: 12 },
-    { label: 'Algorithms', category: 'core', size: 15 },
-    { label: 'Data Structures', category: 'core', size: 15 },
-    { label: 'Flask', category: 'web', size: 11 },
-    { label: 'AWS', category: 'tools', size: 13 }
+    { label: 'Local LLMs', category: 'core', size: 13 }
   ];
 
   class SkillNode {
