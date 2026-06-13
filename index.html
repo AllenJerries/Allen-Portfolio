@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Allen Jerries A L - Backend-Focused Full Stack Developer Portfolio. Explore machine learning natural language tools, real-time safety surveillance systems, and scalable backend architectures.">
+  <meta name="keywords" content="Allen Jerries A L, Full Stack Developer, Backend Engineer, Node.js, Flask, MongoDB, Kotlin, Python, Coimbatore, Resume, Portfolio">
+  <meta name="author" content="Allen Jerries A L">
+  
+  <title>Allen Jerries A L | Backend-Focused Full Stack Developer</title>
+  
+  <!-- Style Link -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body style="overflow-y: hidden;">
+
+  <!-- 1. Custom Mouse Cursor -->
+  <div class="custom-cursor"></div>
+  <div class="custom-cursor-follower"></div>
+
+  <!-- 2. Terminal Preloader -->
+  <div class="preloader" id="preloader">
+    <div class="preloader-logo">&lt;ALLEN.J /&gt;</div>
+    <div class="preloader-loader">
+      <div class="preloader-progress" id="preloader-progress"></div>
+    </div>
+    <div class="preloader-console" id="preloader-console">&gt; Launching developer profile...</div>
+  </div>
+
+  <!-- 3. Navigation Bar -->
+  <nav class="navbar">
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-icon" style="background: var(--grad-primary);">A</div>
+      <span>allen.dev</span>
+    </a>
+    <ul class="nav-menu" id="nav-menu">
+      <li><a href="#" class="nav-link active">Home</a></li>
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li><a href="#projects" class="nav-link">Projects</a></li>
+      <li><a href="#skills" class="nav-link">Skills</a></li>
+      <li><a href="#experience" class="nav-link">Milestones</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+    </ul>
+    <div class="btn-magnetic-container">
+      <a href="#contact" class="btn-magnetic btn-primary nav-cta">
+        <span>Connect</span>
+        <i data-lucide="arrow-up-right" style="width: 16px; height: 16px;"></i>
+      </a>
+    </div>
+    <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Toggle navigation menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- Main Container -->
+  <div class="app-container">
+
+    <!-- 4. Hero Section -->
+    <section class="hero" id="home">
+      <!-- High-perf background Canvas -->
+      <canvas class="hero-canvas-bg" id="hero-canvas"></canvas>
+      
+      <div class="hero-content">
+        <div class="reveal hero-tag glass">
+          <span class="hero-tag-pulse"></span>
+          <span>Open to Backend & Full Stack Roles</span>
+        </div>
+        <h1 class="reveal hero-title">
+          <span>Building</span>
+          <span class="text-gradient-vibrant">Efficient APIs</span>
+          <span>& Scalable Backends.</span>
+        </h1>
+        <p class="reveal hero-desc">
+          Hi, I'm <strong>Allen Jerries A L</strong>, a Computer Science student and Backend-Focused Full Stack Developer. I design and build secure REST APIs, real-time safety applications, and intelligent database query systems.
+        </p>
+        <div class="reveal hero-actions">
+          <div class="btn-magnetic-container">
+            <a href="#projects" class="btn-magnetic btn-primary">
+              <span>View Projects</span>
+              <i data-lucide="code" style="width: 18px; height: 18px;"></i>
+            </a>
+          </div>
+          <div class="btn-magnetic-container">
+            <a href="#contact" class="btn-magnetic btn-secondary">
+              <span>Get in Touch</span>
+              <i data-lucide="mail" style="width: 18px; height: 18px;"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal hero-visual">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+        <div class="hero-card-container">
+          <div class="hero-interactive-card glass">
+            <div class="card-header-dots">
+              <div class="card-dot"></div>
+              <div class="card-dot"></div>
+              <div class="card-dot"></div>
+            </div>
+            <div class="hero-card-terminal">
+              <div class="terminal-line">
+                <span class="terminal-prompt">$</span>
+                <span class="terminal-code">cat developer_profile.yaml</span>
+              </div>
+              <div class="terminal-line">
+                <span class="terminal-prompt">&gt;</span>
+                <span class="terminal-code">
+                  <span class="terminal-keyword">name:</span> Allen Jerries A L<br>
+                  <span class="terminal-keyword">role:</span> Backend-Focused Full Stack<br>
+                  <span class="terminal-keyword">core:</span> Node.js, Flask, MongoDB<br>
+                  <span class="terminal-keyword">focus:</span> REST APIs & Real-time Apps
+                </span>
+              </div>
+              <div class="terminal-line">
+                <span class="terminal-prompt">$</span>
+                <span class="terminal-code">node system_check.js</span>
+              </div>
+              <div class="terminal-line">
+                <span class="terminal-prompt">&gt;</span>
+                <span class="terminal-code" style="color: var(--color-green);">[ACTIVE] Ready to scale.</span>
+              </div>
+            </div>
+            <div class="hero-card-footer">
+              <div class="hero-card-profile">
+                <div class="profile-avatar-placeholder" style="background: var(--grad-primary); overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                  <img src="profile.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" style="width: 100%; height: 100%; object-fit: cover;" alt="AJ">
+                  <span style="display: none; font-weight: 800; color: #fff;">AJ</span>
+                </div>
+                <div class="profile-info">
+                  <h4>Allen Jerries</h4>
+                  <p>Coimbatore, India</p>
+                </div>
+              </div>
+              <span class="hero-card-tag">v1.0.26</span>
+            </div>
+          </div>
+
+          <!-- Floating Photo Card -->
+          <div class="hero-photo-card glass">
+            <div class="photo-inner">
+              <img src="profile.jpg" id="profile-pic" onerror="this.style.display='none'; document.getElementById('profile-pic-fallback').style.display='flex';" alt="Allen Jerries A L">
+              <div class="photo-fallback" id="profile-pic-fallback">
+                <i data-lucide="user" style="width: 48px; height: 48px; color: var(--color-primary);"></i>
+                <span>ALLEN_JERRIES.JPG</span>
+              </div>
+              <div class="photo-scanlines"></div>
+            </div>
+            <div class="photo-details">
+              <div class="photo-loc">
+                <i data-lucide="map-pin" style="width: 12px; height: 12px; color: var(--color-primary);"></i>
+                <span>11.0168° N, 76.9558° E</span>
+              </div>
+              <div class="photo-badge-label">SYS_OPERATOR</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. About Bento Grid Section -->
+    <section class="section" id="about">
+      <div class="section-header reveal">
+        <span class="section-subtitle">Bio</span>
+        <h2 class="section-title">Developer DNA</h2>
+      </div>
+
+      <div class="bento-grid">
+        <!-- Bento 1: Intro (2 Columns) -->
+        <div class="reveal bento-card bento-col-2 bento-intro glass glass-interactive">
+          <div>
+            <h3 class="text-gradient">Who I Am</h3>
+            <p>
+              I am a Computer Science student with hands-on experience in backend and full-stack development. I specialize in building robust REST APIs and real-time synchronization systems using modern environments like Node.js, Flask, and MongoDB. I focus on developing clean, readable, and highly scalable backends.
+            </p>
+          </div>
+          <div class="dna-tags">
+            <span class="dna-tag"><i data-lucide="server" style="width: 14px; height: 14px; color: var(--color-primary);"></i> API Development</span>
+            <span class="dna-tag"><i data-lucide="database" style="width: 14px; height: 14px; color: var(--color-secondary);"></i> Database Management</span>
+            <span class="dna-tag"><i data-lucide="activity" style="width: 14px; height: 14px; color: var(--color-tertiary);"></i> Real-time Sync</span>
+          </div>
+        </div>
+
+        <!-- Bento 2: Stats Container (1 Column, 2 Rows) -->
+        <div class="reveal bento-card bento-row-2 bento-stats glass">
+          <div class="stat-box">
+            <div class="stat-number text-gradient" data-target="7.86" data-suffix=" CGPA">0</div>
+            <div class="stat-label">Engineering Grade</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number text-gradient" data-target="10" data-suffix="+">0</div>
+            <div class="stat-label">Projects Built</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number text-gradient" data-target="74" data-suffix=".5%">0</div>
+            <div class="stat-label">Secondary School</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number text-gradient" data-target="2">0</div>
+            <div class="stat-label text-gradient">Languages spoken</div>
+          </div>
+        </div>
+
+        <!-- Bento 3: Timeline Preview (1 Column) -->
+        <div class="reveal bento-card bento-timeline-preview glass glass-interactive">
+          <h3 class="text-gradient">Latest Milestones</h3>
+          <div class="bento-timeline-item">
+            <div class="timeline-icon-wrapper" style="color: var(--color-primary);">
+              <i data-lucide="briefcase" style="width: 20px; height: 20px;"></i>
+            </div>
+            <div class="timeline-info">
+              <h4>Summer Intern</h4>
+              <span>Cannyfore Technology Solutions</span>
+              <p>Developed booking APIs and Mongo schemas.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bento 4: Socials & Connect (1 Column) -->
+        <div class="reveal bento-card bento-connect glass glass-interactive">
+          <h3 class="text-gradient">Quick Hubs</h3>
+          <div class="bento-socials-grid">
+            <a href="https://allenjerries.github.io/" target="_blank" class="social-btn git">
+              <i data-lucide="globe" style="width: 18px; height: 18px;"></i>
+              <span>Website</span>
+            </a>
+            <a href="https://www.linkedin.com/in/allen-jerries-a-l-2b0322351/" target="_blank" class="social-btn linkedin">
+              <i data-lucide="linkedin" style="width: 18px; height: 18px;"></i>
+              <span>LinkedIn</span>
+            </a>
+            <a href="mailto:jerriesallen@gmail.com" class="social-btn twitter">
+              <i data-lucide="mail" style="width: 18px; height: 18px;"></i>
+              <span>Email</span>
+            </a>
+            <a href="Resume/ALLEN resume.pdf" target="_blank" class="social-btn resume">
+              <i data-lucide="file-text" style="width: 18px; height: 18px;"></i>
+              <span>Resume</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Projects Section -->
+    <section class="section" id="projects">
+      <div class="section-header reveal">
+        <span class="section-subtitle">Engineering Labs</span>
+        <h2 class="section-title">Featured Creations</h2>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <ul class="reveal projects-filter">
+        <li><button class="filter-btn active" data-filter="all">All Specs</button></li>
+        <li><button class="filter-btn" data-filter="aiml">AI / ML</button></li>
+        <li><button class="filter-btn" data-filter="systems">Mobile / Systems</button></li>
+        <li><button class="filter-btn" data-filter="web">Web Dev</button></li>
+      </ul>
+
+      <!-- Projects Grid -->
+      <div class="projects-grid">
+        <!-- Project 1 -->
+        <div class="reveal project-card glass glass-interactive" data-category="systems">
+          <span class="project-tag" style="color: var(--color-primary); background-color: rgba(255, 69, 0, 0.08);">Mobile Application</span>
+          <div>
+            <h3 class="project-title">Smart Surveillance</h3>
+            <p class="project-desc">A Personal Safety & Crash Detection App. Built a real-time safety monitoring app using Kotlin and Firebase featuring crash detection and automated alert systems, combined with real-time location tracking for emergency response.</p>
+          </div>
+          <div>
+            <div class="project-tech">
+              <span class="tech-tag">Kotlin</span>
+              <span class="tech-tag">Firebase</span>
+              <span class="tech-tag">Crash Detection API</span>
+              <span class="tech-tag">Location Sync</span>
+            </div>
+            <div class="project-links">
+              <a href="https://allenjerries.github.io/" target="_blank" class="project-link">
+                <i data-lucide="github" style="width: 16px; height: 16px;"></i>
+                <span>Repository</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="reveal project-card glass glass-interactive delay-1" data-category="aiml">
+          <span class="project-tag" style="color: var(--color-secondary); background-color: rgba(255, 140, 0, 0.08);">PERSONAL AI OPERATING SYSTEM</span>
+          <div>
+            <h3 class="project-title">JERRIES QUANTUM AI</h3>
+            <p class="project-desc">Advanced Personal AI Operating System powered by Local Large Language Models (LLMs), featuring persistent memory, multi-agent workflows, voice interaction, terminal automation, file management, intelligent chat history, and privacy-focused offline AI processing.</p>
+          </div>
+          <div>
+            <div class="project-tech">
+              <span class="tech-tag">React.js</span>
+              <span class="tech-tag">Node.js</span>
+              <span class="tech-tag">Express.js</span>
+              <span class="tech-tag">MongoDB</span>
+              <span class="tech-tag">Ollama</span>
+              <span class="tech-tag">AI Agents</span>
+            </div>
+            <div class="project-links">
+              <a href="https://allenjerries.github.io/" target="_blank" class="project-link">
+                <i data-lucide="github" style="width: 16px; height: 16px;"></i>
+                <span>Repository</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="reveal project-card glass glass-interactive" data-category="web">
+          <span class="project-tag" style="color: var(--color-tertiary); background-color: rgba(230, 0, 0, 0.08);">AI-POWERED DIGITAL FORENSICS</span>
+          <div>
+            <h3 class="project-title">ForensiX</h3>
+            <p class="project-desc">Enterprise-grade AI Digital Crime Investigation Platform featuring OCR, evidence correlation, entity extraction, relationship analysis, timeline reconstruction, risk assessment, and automated forensic report generation.</p>
+          
+          </div>
+          <div>
+            <div class="project-tech">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">Streamlit</span>
+              <span class="tech-tag">EasyOCR</span>
+              <span class="tech-tag">Ollama</span>
+              <span class="tech-tag">Digital Forensics</span>
+            </div>
+            <div class="project-links">
+              <a href="https://allenjerries.github.io/" target="_blank" class="project-link">
+                <i data-lucide="github" style="width: 16px; height: 16px;"></i>
+                <span>Repository</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 4 -->
+
+        <div class="reveal project-card glass glass-interactive" data-category="web">
+          <span class="project-tag" style="color: var(--color-tertiary); background-color: rgba(230, 0, 0, 0.08);">AI-POWERED DIGITAL FORENSICS</span>
+          <div>
+            <h3 class="project-title">ForensiX</h3>
+            <p class="project-desc">Enterprise-grade AI Digital Crime Investigation Platform featuring OCR, evidence correlation, entity extraction, relationship analysis, timeline reconstruction, risk assessment, and automated forensic report generation.</p>
+          
+          </div>
+          <div>
+            <div class="project-tech">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">Streamlit</span>
+              <span class="tech-tag">EasyOCR</span>
+              <span class="tech-tag">Ollama</span>
+              <span class="tech-tag">Digital Forensics</span>
+            </div>
+            <div class="project-links">
+              <a href="https://allenjerries.github.io/" target="_blank" class="project-link">
+                <i data-lucide="github" style="width: 16px; height: 16px;"></i>
+                <span>Repository</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Interactive Skills Matrix -->
+    <section class="section" id="skills">
+      <div class="section-header reveal">
+        <span class="section-subtitle">Cognitive Network</span>
+        <h2 class="section-title">Skills Blueprint</h2>
+      </div>
+
+      <div class="skills-container">
+        <!-- Canvas side (interactive nodes) -->
+        <div class="reveal skills-interactive-area glass">
+          <canvas class="skills-canvas" id="skills-canvas"></canvas>
+          <div class="skills-legend">
+            <div class="legend-item">
+              <span class="legend-color" style="background-color: var(--color-primary);"></span>
+              <span>Languages</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-color" style="background-color: var(--color-secondary);"></span>
+              <span>Web Stack</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-color" style="background-color: var(--color-tertiary);"></span>
+              <span>DB / Databases</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-color" style="background-color: var(--color-orange);"></span>
+              <span>Tools</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Progress List side -->
+        <div class="skills-grid">
+          <!-- Card 1: Languages -->
+          <div class="reveal skill-category-card glass category-lang">
+            <h3 class="skill-category-title" style="color: var(--color-primary);">
+              <i data-lucide="code-2" style="width: 20px; height: 20px;"></i>
+              <span>Languages</span>
+            </h3>
+            <div class="skill-list">
+              <div class="skill-item">
+                <div class="skill-item-info"><span>Python</span><span>92%</span></div>
+                <div class="skill-bar-bg"><div class="skill-bar-fill" data-percentage="92"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-item-info"><span>JavaScript</span><span>90%</span></div>
+                <div class="skill-bar-bg"><div class="skill-bar-fill" data-percentage="90"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-item-info"><span>Kotlin</span><span>82%</span></div>
+                <div class="skill-bar-bg"><div class="skill-bar-fill" data-percentage="82"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-item-info"><span>SQL</span><span>88%</span></div>
+                <div class="skill-bar-bg"><div class="skill-bar-fill" data-percentage="88"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Web Frameworks -->
+          <div class="reveal skill-category-card glass category-web delay-1">
+            <h3 class="skill-category-title" style="color: var(--color-secondary);">
+              <i data-lucide="layers" style="width: 20px; height: 20px;"></i>
+              <span>Web Technologies</span>
+            </h3>
+            <div class="skill-list">
+              <div class="skill-item">
+                <div class="skill-item-info"><span>React.js</span><span>88%</span></div>
+                <div class="skill-bar-bg"><div class="skill-bar-fill" data-percentage="88"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-item-info"><span>Node.js / Express</span><span>85%</span></div>
+                <div class="skill-bar-bg"><div class="skill-bar-fill" data-percentage="85"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-item-info"><span>Flask</span><span>80%</span></div>
+                <div class="skill-bar-bg"><div class="skill-bar-fill" data-percentage="80"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-item-info"><span>HTML & CSS</span><span>94%</span></div>
+                <div class="skill-bar-bg"><div class="skill-bar-fill" data-percentage="94"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: Databases -->
+          <div class="reveal skill-category-card glass category-tools">
+            <h3 class="skill-category-title" style="color: var(--color-tertiary);">
+              <i data-lucide="database" style="width: 20px; height: 20px;"></i>
+              <span>Databases</span>
+            </h3>
+            <div class="skill-list">
+              <div class="skill-item">
+                <div class="skill-item-info"><span>MongoDB</span><span>88%</span></div>
+                <div class="skill-bar-bg"><div class="skill-bar-fill" data-percentage="88"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-item-info"><span>MySQL</span><span>85%</span></div>
+                <div class="skill-bar-bg"><div class="skill-bar-fill" data-percentage="85"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4: Tools -->
+          <div class="reveal skill-category-card glass category-core delay-1">
+            <h3 class="skill-category-title" style="color: var(--color-orange);">
+              <i data-lucide="terminal" style="width: 20px; height: 20px;"></i>
+              <span>Tools & Platforms</span>
+            </h3>
+            <div class="skill-list">
+              <div class="skill-item">
+                <div class="skill-item-info"><span>Git / GitHub</span><span>90%</span></div>
+                <div class="skill-bar-bg"><div class="skill-bar-fill" data-percentage="90"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-item-info"><span>Firebase</span><span>82%</span></div>
+                <div class="skill-bar-bg"><div class="skill-bar-fill" data-percentage="82"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Experience/Timeline Section -->
+    <section class="section" id="experience">
+      <div class="section-header reveal">
+        <span class="section-subtitle">Academic & Industry</span>
+        <h2 class="section-title">Milestone Timeline</h2>
+      </div>
+
+      <!-- Horizontal scrolling track -->
+      <div class="reveal timeline-horizontal">
+        
+        <!-- Internship -->
+        <div class="timeline-card glass glass-interactive">
+          <div>
+            <span class="timeline-year" style="color: var(--color-primary); background-color: rgba(255, 69, 0, 0.08);">Summer 2025</span>
+            <h3>Summer Intern</h3>
+            <div class="timeline-subtitle">Cannyfore Technology Solutions Pvt Ltd</div>
+          </div>
+          <p>Assisted in developing Node.js & Express REST APIs for real-time booking integrations. Designed schemas and stored records in MongoDB. Contributed to frontend upgrades in React, debugged issues, and managed sources using Git.</p>
+        </div>
+
+        <!-- Engineering Education -->
+        <div class="timeline-card glass glass-interactive">
+          <div>
+            <span class="timeline-year" style="color: var(--color-secondary); background-color: rgba(255, 140, 0, 0.08);">2023 - 2027</span>
+            <h3>B.E. Computer Science</h3>
+            <div class="timeline-subtitle">Coimbatore Institute of Engineering & Tech</div>
+          </div>
+          <p>Pursuing undergraduate degree in Computer Science and Engineering. Currently maintaining a strong academic record with a cumulative CGPA of 7.86.</p>
+        </div>
+
+        <!-- Secondary School -->
+        <div class="timeline-card glass glass-interactive">
+          <div>
+            <span class="timeline-year" style="color: var(--color-tertiary); background-color: rgba(230, 0, 0, 0.08);">Graduated 2023</span>
+            <h3>Secondary School Education</h3>
+            <div class="timeline-subtitle">Kongunadu Matric. Hr. Sec. School</div>
+          </div>
+          <p>Completed higher secondary education, graduating with a final grade of 74.5% overall in science stream coursework.</p>
+        </div>
+
+        <!-- Languages & Interests -->
+        <div class="timeline-card glass glass-interactive">
+          <div>
+            <span class="timeline-year" style="color: var(--color-orange); background-color: rgba(255, 165, 0, 0.08);">Communication</span>
+            <h3>Languages Spoken</h3>
+            <div class="timeline-subtitle">Bilingual Capability</div>
+          </div>
+          <p>Native proficiency in Tamil and professional working/academic proficiency in English. Solid communication base for team collaborations.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 9. Interactive Contact Section -->
+    <section class="section" id="contact">
+      <div class="section-header reveal">
+        <span class="section-subtitle">Communicate</span>
+        <h2 class="section-title">Start a Connection</h2>
+      </div>
+
+      <div class="contact-grid">
+        <!-- Vibrant Details Card -->
+        <div class="reveal contact-info contact-card-vibrant" style="background: linear-gradient(135deg, var(--color-primary), #900000);">
+          <div>
+            <h3>Let's collaborate on code.</h3>
+            <p>Send an encrypted transmission or reach out directly on social hubs. Let's build the future together.</p>
+          </div>
+          <div class="contact-details">
+            <div class="contact-detail-item">
+              <div class="contact-detail-icon"><i data-lucide="mail"></i></div>
+              <div class="contact-detail-content">
+                <span>Email Address</span>
+                <a href="mailto:jerriesallen@gmail.com">jerriesallen@gmail.com</a>
+              </div>
+            </div>
+            <div class="contact-detail-item">
+              <div class="contact-detail-icon"><i data-lucide="phone"></i></div>
+              <div class="contact-detail-content">
+                <span>Phone / Contact</span>
+                <a href="tel:+919360972523">+91 9360972523</a>
+              </div>
+            </div>
+            <div class="contact-detail-item">
+              <div class="contact-detail-icon"><i data-lucide="map-pin"></i></div>
+              <div class="contact-detail-content">
+                <span>Current Base</span>
+                <p>Coimbatore, Tamilnadu, India</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Form Box -->
+        <div class="reveal contact-form-card glass">
+          <form class="contact-form" id="contact-form">
+            <div class="form-group-row">
+              <div class="form-group">
+                <input type="text" class="form-input" id="name" placeholder=" " required>
+                <label class="form-label" for="name">Your Name</label>
+              </div>
+              <div class="form-group">
+                <input type="email" class="form-input" id="email" placeholder=" " required>
+                <label class="form-label" for="email">Email Address</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-input" id="subject" placeholder=" ">
+              <label class="form-label" for="subject">Project Spec / Subject</label>
+            </div>
+            <div class="form-group">
+              <textarea class="form-input" id="message" placeholder=" " required></textarea>
+              <label class="form-label" for="message">Transmission Details</label>
+            </div>
+            <div class="btn-magnetic-container" style="align-self: flex-start;">
+              <button type="submit" class="btn-magnetic btn-primary">
+                <span>Deploy Transmission</span>
+                <i data-lucide="send" style="width: 18px; height: 18px;"></i>
+              </button>
+            </div>
+            <div class="form-status" id="form-status"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. Footer Section -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div>
+          <h4>Allen Jerries A L &copy; 2026</h4>
+          <p style="font-size: 0.85rem; color: var(--text-light); margin-top: 4px;">Designed with absolute aesthetics. All rights reserved.</p>
+        </div>
+        <button class="footer-egg-btn" id="easter-egg-btn">
+          <i data-lucide="terminal" style="width: 14px; height: 14px; display: inline; vertical-align: middle; margin-right: 4px;"></i>
+          <span>Execute Matrix Rainfall</span>
+        </button>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Lucide Icons Library -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Initialize icons -->
+  <script>
+    lucide.createIcons();
+
+    // Mobile Navbar Menu Toggle Panel Drawer
+    const mobileToggle = document.getElementById('mobile-nav-toggle');
+    const navMenu = document.getElementById('nav-menu');
+
+    mobileToggle.addEventListener('click', () => {
+      mobileToggle.classList.toggle('open');
+      navMenu.classList.toggle('mobile-open');
+    });
+
+    // Close menu when clicking links
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileToggle.classList.remove('open');
+        navMenu.classList.remove('mobile-open');
+      });
+    });
+  </script>
+  <!-- Script File -->
+  <script src="script.js"></script>
+</body>
+</html>
