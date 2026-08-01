@@ -613,38 +613,76 @@ function initProjectFilters() {
 }
 
 /* ==========================================
-   9. Contact Form Simulation
+   9. Contact Form — Real Email via EmailJS
    ========================================== */
 function initContactForm() {
   const form = document.getElementById('contact-form');
   const status = document.getElementById('form-status');
+  const submitBtn = document.getElementById('submit-btn');
+  const submitBtnText = document.getElementById('submit-btn-text');
 
   if (!form) return;
 
-  form.addEventListener('submit', (e) => {
+  // ─── EmailJS Credentials ───────────────────────────────────────
+  const EMAILJS_SERVICE_ID  = 'service_ipja5ik';
+  const EMAILJS_TEMPLATE_ID = 'template_default'; // Default template ID or replace with your custom template ID (e.g. 'template_xxxxxxx')
+  const EMAILJS_PUBLIC_KEY  = 'fIVbMqg3gpdoiAmWa';
+  // ──────────────────────────────────────────────────────────────
+
+  // Initialise EmailJS once
+  if (typeof emailjs !== 'undefined') {
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+  }
+
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    
-    // Simple loader simulation
+
+    if (typeof emailjs === 'undefined') {
+      status.style.display = 'block';
+      status.textContent = '⚠ EmailJS failed to load. Check your internet connection.';
+      status.className = 'form-status error';
+      return;
+    }
+
+    // Loading state
+    submitBtn.disabled = true;
+    submitBtnText.textContent = 'Transmitting...';
     status.style.display = 'block';
-    status.textContent = 'Encrypting & sending secure envelope...';
+    status.textContent = 'Encrypting & routing secure transmission...';
     status.className = 'form-status';
 
-    setTimeout(() => {
-      // Success feedback
-      status.textContent = 'Message routed successfully! Let\'s build together.';
+    try {
+      // Send the form — EmailJS maps name attributes to template variables
+      await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form);
+
+      // ✅ Success
+      status.textContent = '✓ Message deployed successfully! I\'ll get back to you soon.';
       status.className = 'form-status success';
       form.reset();
 
-      // Clear fields visual triggers
-      const inputs = form.querySelectorAll('.form-input');
-      inputs.forEach(input => {
-        input.dispatchEvent(new Event('input')); // Reset floating label placement
+      // Reset floating labels
+      form.querySelectorAll('.form-input').forEach(input => {
+        input.dispatchEvent(new Event('input'));
       });
-      
+
       setTimeout(() => {
         status.style.display = 'none';
-      }, 5000);
-    }, 1500);
+      }, 6000);
+
+    } catch (err) {
+      // ❌ Error
+      console.error('EmailJS error:', err);
+      status.textContent = '✗ Transmission failed. Please email directly: jerriesallen@gmail.com';
+      status.className = 'form-status error';
+
+      setTimeout(() => {
+        status.style.display = 'none';
+      }, 7000);
+    } finally {
+      // Restore button
+      submitBtn.disabled = false;
+      submitBtnText.textContent = 'Deploy Transmission';
+    }
   });
 }
 
