@@ -706,5 +706,104 @@
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <!-- Script File -->
   <script src="script.js"></script>
+
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <!-- MEET ALLEN AI — FLOATING ASSISTANT WIDGET                     -->
+  <!-- ════════════════════════════════════════════════════════════ -->
+  <div id="allen-ai-container" class="allen-ai-container">
+    <!-- Floating AI Orb Trigger -->
+    <button id="allen-ai-trigger" class="allen-ai-orb" aria-label="Open Meet Allen AI Assistant">
+      <div class="orb-aura"></div>
+      <div class="orb-core">
+        <svg class="orb-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="url(#orbGrad)" />
+          <defs>
+            <linearGradient id="orbGrad" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#FF4500" />
+              <stop offset="1" stop-color="#FF8C00" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="orb-badge">
+        <span class="orb-pulse-dot"></span>
+        <span>Meet Allen AI ✨</span>
+      </div>
+    </button>
+
+    <!-- Glassmorphism AI Assistant Panel -->
+    <div id="allen-ai-panel" class="allen-ai-panel hidden" role="dialog" aria-label="Meet Allen AI Assistant Panel">
+      <!-- Header -->
+      <div class="ai-header">
+        <div class="ai-header-info">
+          <div class="ai-avatar">✨</div>
+          <div class="ai-title-wrap">
+            <h3>Meet Allen AI</h3>
+            <p class="ai-subtitle">Digital Portfolio Assistant</p>
+          </div>
+        </div>
+        <div class="ai-header-right">
+          <span class="ai-status-badge"><span class="status-dot"></span> Online</span>
+          <button id="allen-ai-close" class="ai-close-btn" aria-label="Close AI Panel">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Sub Banner -->
+      <div class="ai-welcome-banner">
+        <p>"I know everything about Allen Jerries. Ask me anything."</p>
+      </div>
+
+      <!-- Suggested Prompt Chips -->
+      <div class="ai-chips-wrapper">
+        <div class="ai-chips-scroll" id="ai-prompt-chips">
+          <button class="ai-chip" data-prompt="Tell me about Allen">👋 Tell me about Allen</button>
+          <button class="ai-chip" data-prompt="Best Project">🚀 Best Project</button>
+          <button class="ai-chip" data-prompt="Technical Skills">💻 Technical Skills</button>
+          <button class="ai-chip" data-prompt="Education">🎓 Education</button>
+          <button class="ai-chip" data-prompt="Show Portfolio Projects">📁 Show Portfolio Projects</button>
+          <button class="ai-chip" data-prompt="Certifications">🏆 Certifications</button>
+          <button class="ai-chip" data-prompt="Resume">📄 Resume</button>
+          <button class="ai-chip" data-prompt="Internship">💼 Internship</button>
+          <button class="ai-chip" data-prompt="Contact">📞 Contact</button>
+          <button class="ai-chip" data-prompt="Current Goal">📍 Current Goal</button>
+        </div>
+      </div>
+
+      <!-- Chat Stream Log -->
+      <div id="ai-chat-log" class="ai-chat-log">
+        <div class="ai-message-row ai">
+          <div class="ai-msg-avatar">✨</div>
+          <div class="ai-msg-content">
+            Hello! I am <strong>Allen AI</strong>, the digital assistant representing <strong>Allen Jerries A L</strong>.<br><br>
+            I have complete knowledge of Allen's engineering skills, full-stack projects, internship accomplishments, and background. What would you like to explore today?
+            <div class="ai-smart-actions">
+              <button class="ai-action-btn" data-prompt="Tell me about Allen">👋 Who is Allen?</button>
+              <button class="ai-action-btn" data-prompt="Show Portfolio Projects">🚀 View Projects</button>
+              <button class="ai-action-btn" data-link="Resume/ALLEN resume.pdf">📄 Resume PDF</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Input Form -->
+      <form id="ai-input-form" class="ai-input-container">
+        <input type="text" id="ai-user-input" class="ai-input-field" placeholder="Ask Allen AI anything..." autocomplete="off">
+        <button type="submit" class="ai-send-btn" aria-label="Send Message">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Meet Allen AI Script -->
+  <script src="allen_ai.js"></script>
 </body>
 </html>
