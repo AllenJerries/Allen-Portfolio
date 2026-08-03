@@ -277,10 +277,12 @@ function initSkillsCanvas() {
   // Nodes for core skills (matching resume tech stack)
   const skillsData = [
     { label: 'JavaScript', category: 'lang', size: 16 },
+    { label: 'TypeScript', category: 'lang', size: 14 },
     { label: 'Python', category: 'lang', size: 15 },
     { label: 'Kotlin', category: 'lang', size: 14 },
     { label: 'C', category: 'lang', size: 12 },
     { label: 'React.js', category: 'web', size: 15 },
+    { label: 'Electron', category: 'web', size: 13 },
     { label: 'HTML5', category: 'web', size: 13 },
     { label: 'CSS3', category: 'web', size: 13 },
     { label: 'Tailwind CSS', category: 'web', size: 12 },
@@ -625,24 +627,16 @@ function initContactForm() {
 
   // ─── EmailJS Credentials ───────────────────────────────────────
   const EMAILJS_SERVICE_ID  = 'service_ipja5ik';
-  const EMAILJS_TEMPLATE_ID = 'template_default'; // Default template ID or replace with your custom template ID (e.g. 'template_xxxxxxx')
+  const EMAILJS_TEMPLATE_ID = 'template_default';
   const EMAILJS_PUBLIC_KEY  = 'fIVbMqg3gpdoiAmWa';
   // ──────────────────────────────────────────────────────────────
 
-  // Initialise EmailJS once
-  if (typeof emailjs !== 'undefined') {
+  if (typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY) {
     emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
   }
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-
-    if (typeof emailjs === 'undefined') {
-      status.style.display = 'block';
-      status.textContent = '⚠ EmailJS failed to load. Check your internet connection.';
-      status.className = 'form-status error';
-      return;
-    }
 
     // Loading state
     submitBtn.disabled = true;
@@ -651,16 +645,57 @@ function initContactForm() {
     status.textContent = 'Encrypting & routing secure transmission...';
     status.className = 'form-status';
 
-    try {
-      // Send the form — EmailJS maps name attributes to template variables
-      await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form);
+    let success = false;
 
-      // ✅ Success
-      status.textContent = '✓ Message deployed successfully! I\'ll get back to you soon.';
+    // Try EmailJS first
+    if (typeof emailjs !== 'undefined' && EMAILJS_TEMPLATE_ID && EMAILJS_TEMPLATE_ID !== 'template_default') {
+      try {
+        await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form);
+        success = true;
+      } catch (err) {
+        console.warn('EmailJS attempt failed, switching to direct mail backup...', err);
+      }
+    }
+
+    // Direct Mail Service Backup (FormSubmit API to jerriesallen@gmail.com)
+    if (!success) {
+      try {
+        const formData = new FormData(form);
+        const data = {
+          name: formData.get('from_name') || form.querySelector('#name')?.value,
+          email: formData.get('from_email') || form.querySelector('#email')?.value,
+          subject: formData.get('subject') || form.querySelector('#subject')?.value || 'New Portfolio Contact',
+          message: formData.get('message') || form.querySelector('#message')?.value,
+          _captcha: "false",
+          _subject: `[Portfolio Transmission] ${formData.get('subject') || 'New Message'}`
+        };
+
+        const res = await fetch('https://formsubmit.co/ajax/jerriesallen@gmail.com', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (res.ok) {
+          const json = await res.json();
+          if (json.success === "true" || json.success === true || res.status === 200) {
+            success = true;
+          }
+        }
+      } catch (fallbackErr) {
+        console.error('Direct mail API error:', fallbackErr);
+      }
+    }
+
+    if (success) {
+      status.textContent = '✓ Transmission deployed successfully! Check your email inbox.';
       status.className = 'form-status success';
       form.reset();
 
-      // Reset floating labels
+      // Clear floating labels placement
       form.querySelectorAll('.form-input').forEach(input => {
         input.dispatchEvent(new Event('input'));
       });
@@ -668,21 +703,17 @@ function initContactForm() {
       setTimeout(() => {
         status.style.display = 'none';
       }, 6000);
-
-    } catch (err) {
-      // ❌ Error
-      console.error('EmailJS error:', err);
+    } else {
       status.textContent = '✗ Transmission failed. Please email directly: jerriesallen@gmail.com';
       status.className = 'form-status error';
 
       setTimeout(() => {
         status.style.display = 'none';
       }, 7000);
-    } finally {
-      // Restore button
-      submitBtn.disabled = false;
-      submitBtnText.textContent = 'Deploy Transmission';
     }
+
+    submitBtn.disabled = false;
+    submitBtnText.textContent = 'Deploy Transmission';
   });
 }
 
