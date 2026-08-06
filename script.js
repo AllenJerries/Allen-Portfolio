@@ -274,30 +274,32 @@ function initSkillsCanvas() {
     height = canvas.height = canvas.offsetHeight;
   });
 
-  // Nodes for core skills (matching resume tech stack)
+  // Nodes for core skills (matching latest resume tech stack)
   const skillsData = [
     { label: 'JavaScript', category: 'lang', size: 16 },
     { label: 'TypeScript', category: 'lang', size: 14 },
     { label: 'Python', category: 'lang', size: 15 },
     { label: 'Kotlin', category: 'lang', size: 14 },
-    { label: 'C', category: 'lang', size: 12 },
+    { label: 'Java', category: 'lang', size: 14 },
+    { label: 'C++', category: 'lang', size: 13 },
+    { label: 'SQL', category: 'lang', size: 12 },
     { label: 'React.js', category: 'web', size: 15 },
-    { label: 'Electron', category: 'web', size: 13 },
-    { label: 'HTML5', category: 'web', size: 13 },
-    { label: 'CSS3', category: 'web', size: 13 },
-    { label: 'Tailwind CSS', category: 'web', size: 12 },
+    { label: 'Tailwind CSS', category: 'web', size: 13 },
+    { label: 'Flutter', category: 'web', size: 14 },
+    { label: 'Android Dev', category: 'web', size: 14 },
     { label: 'Node.js', category: 'web', size: 15 },
     { label: 'Express.js', category: 'web', size: 13 },
-    { label: 'REST APIs', category: 'web', size: 13 },
-    { label: 'MongoDB', category: 'core', size: 14 },
-    { label: 'Firebase', category: 'core', size: 13 },
+    { label: 'REST APIs', category: 'web', size: 14 },
+    { label: 'MongoDB Atlas', category: 'core', size: 14 },
+    { label: 'Firestore', category: 'core', size: 13 },
     { label: 'MySQL', category: 'core', size: 12 },
-    { label: 'Git', category: 'tools', size: 13 },
-    { label: 'GitHub', category: 'tools', size: 13 },
-    { label: 'Android Studio', category: 'tools', size: 12 },
-    { label: 'Postman', category: 'tools', size: 11 },
+    { label: 'Claude Code', category: 'tools', size: 14 },
+    { label: 'AI Agents', category: 'tools', size: 15 },
+    { label: 'Prompt Eng.', category: 'tools', size: 13 },
+    { label: 'Ollama / LLMs', category: 'tools', size: 14 },
     { label: 'Docker', category: 'tools', size: 12 },
-    { label: 'Local LLMs', category: 'core', size: 13 }
+    { label: 'Git / GitHub', category: 'tools', size: 13 },
+    { label: 'Electron', category: 'tools', size: 13 }
   ];
 
   class SkillNode {

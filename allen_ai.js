@@ -95,12 +95,13 @@
     },
 
     skills: {
-      languages: ["JavaScript", "Python", "Kotlin", "C", "TypeScript", "SQL"],
-      frontend: ["React.js", "HTML5", "CSS3", "Tailwind CSS"],
-      backend: ["Node.js", "Express.js", "REST APIs", "Flask"],
-      databases: ["MongoDB", "Firebase", "MySQL"],
-      tools: ["Git", "GitHub", "Android Studio", "Postman", "Docker"],
-      technologies: ["MERN Stack", "Full Stack Development", "Android App Dev", "Local LLMs (Ollama)", "AI Agents"]
+      languages: ["Java", "JavaScript (ES6)", "TypeScript", "Python", "Kotlin", "C", "C++", "SQL"],
+      frontend: ["HTML5", "CSS3", "React.js", "Tailwind CSS", "XML"],
+      backend: ["Node.js", "Express.js", "REST APIs"],
+      databases: ["MongoDB", "MongoDB Atlas", "MySQL", "Firebase (Firestore)"],
+      mobile: ["Android Development (Kotlin)", "Flutter"],
+      tools: ["Git", "GitHub", "Docker", "Electron", "Postman"],
+      ai_tools: ["Ollama", "Claude Code", "Prompt Engineering", "LLM Integration", "AI Agent Development"]
     }
   };
 
@@ -115,7 +116,7 @@
       return {
         text: `👋 <strong>Hi! Here is an executive summary of Allen Jerries:</strong><br><br>
                <strong>Allen Jerries A L</strong> is a <strong>MERN Stack Developer</strong>, <strong>Mobile App Developer</strong>, and <strong>AI Enthusiast</strong> pursuing a <strong>B.E. in Computer Science & Engineering</strong> at <em>Coimbatore Institute of Engineering and Technology</em> (CGPA 7.9/10).<br><br>
-               He specializes in engineering secure REST APIs, real-time safety monitoring systems, local AI assistants (Ollama & AI Agents), and full-stack web platforms.`,
+               He specializes in engineering secure REST APIs, real-time safety monitoring systems, AI agents & local LLM tools (Ollama, Claude Code), and full-stack web & mobile applications.`,
         actions: [
           { text: "🚀 Best Project", prompt: "Best Project" },
           { text: "💻 Technical Skills", prompt: "Technical Skills" },
@@ -144,7 +145,7 @@
     // 3. Projects / Show Portfolio Projects
     if (matchAny(text, ['project', 'projects', 'portfolio', 'creations', 'built', 'work', 'apps', 'web apps'])) {
       return {
-        text: `📁 <strong>Allen has built 10+ real-world software applications.</strong> Here are 4 key featured projects:`,
+        text: `📁 <strong>Allen has built 10+ real-world software applications.</strong> Here are key featured projects:`,
         cards: ALLEN_KNOWLEDGE.projects.slice(0, 4),
         actions: [
           { text: "🐙 View GitHub Repos", link: ALLEN_KNOWLEDGE.profile.github },
@@ -157,13 +158,14 @@
     if (matchAny(text, ['skill', 'skills', 'stack', 'tech', 'languages', 'frontend', 'backend', 'database', 'tools', 'coding'])) {
       const s = ALLEN_KNOWLEDGE.skills;
       return {
-        text: `💻 <strong>Allen's Technical Stack:</strong><br><br>
-               • <strong>Languages:</strong> ${s.languages.join(', ')}<br>
+        text: `💻 <strong>Allen's Complete Technical Skills:</strong><br><br>
+               • <strong>Programming Languages:</strong> ${s.languages.join(', ')}<br>
                • <strong>Frontend:</strong> ${s.frontend.join(', ')}<br>
                • <strong>Backend:</strong> ${s.backend.join(', ')}<br>
                • <strong>Databases:</strong> ${s.databases.join(', ')}<br>
-               • <strong>Tools & DevOps:</strong> ${s.tools.join(', ')}<br>
-               • <strong>Specializations:</strong> ${s.technologies.join(', ')}`,
+               • <strong>Mobile Development:</strong> ${s.mobile.join(', ')}<br>
+               • <strong>Tools & Technologies:</strong> ${s.tools.join(', ')}<br>
+               • <strong>AI & Developer Tools:</strong> ${s.ai_tools.join(', ')}`,
         actions: [
           { text: "🚀 View Projects", prompt: "Show Portfolio Projects" },
           { text: "💼 Internship", prompt: "Internship" }
