@@ -3,12 +3,75 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Allen Jerries A L - Backend-Focused Full Stack Developer Portfolio. Explore machine learning natural language tools, real-time safety surveillance systems, and scalable backend architectures.">
-  <meta name="keywords" content="Allen Jerries A L, Full Stack Developer, Backend Engineer, Node.js, Flask, MongoDB, Kotlin, Python, Coimbatore, Resume, Portfolio">
-  <meta name="author" content="Allen Jerries A L">
-  
-  <title>Allen Jerries A L | Backend-Focused Full Stack Developer</title>
-  
+
+  <!-- Primary SEO -->
+  <title>Allen Jerries | Full Stack Developer & Computer Science Engineer</title>
+  <meta name="description" content="Allen Jerries is a Computer Science Engineer and Full Stack Developer specializing in React, Node.js, Android, AI development, and scalable backend systems.">
+  <meta name="author" content="Allen Jerries">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="googlebot" content="index, follow">
+  <link rel="canonical" href="https://allen-portfolio-psi.vercel.app/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Allen Jerries | Full Stack Developer & Computer Science Engineer">
+  <meta property="og:description" content="Allen Jerries is a Computer Science Engineer and Full Stack Developer specializing in React, Node.js, Android, AI development, and scalable backend systems.">
+  <meta property="og:url" content="https://allen-portfolio-psi.vercel.app/">
+  <meta property="og:image" content="https://allen-portfolio-psi.vercel.app/profile.jpg">
+  <meta property="og:site_name" content="Allen Jerries — Portfolio">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Allen Jerries | Full Stack Developer & Computer Science Engineer">
+  <meta name="twitter:description" content="Allen Jerries is a Computer Science Engineer and Full Stack Developer specializing in React, Node.js, Android, AI development, and scalable backend systems.">
+  <meta name="twitter:image" content="https://allen-portfolio-psi.vercel.app/profile.jpg">
+
+  <!-- Brand / Theme -->
+  <meta name="theme-color" content="#ff4500">
+  <meta name="color-scheme" content="light">
+
+  <!-- Favicon (inline SVG data URI using the portfolio's primary orange) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23ff4500'/%3E%3Ctext x='50' y='68' font-family='system-ui,sans-serif' font-size='55' font-weight='800' fill='white' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
+
+  <!-- Person Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Allen Jerries",
+    "url": "https://allen-portfolio-psi.vercel.app/",
+    "image": "https://allen-portfolio-psi.vercel.app/profile.jpg",
+    "jobTitle": "Full Stack Developer & Computer Science Engineer",
+    "description": "Computer Science Engineer and Full Stack Developer specializing in React, Node.js, Android, AI development, and scalable backend systems.",
+    "email": "jerriesallen@gmail.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Coimbatore",
+      "addressRegion": "Tamil Nadu",
+      "addressCountry": "IN"
+    },
+    "sameAs": [
+      "https://github.com/AllenJerries",
+      "https://linkedin.com/in/allen-jerries-a-l"
+    ]
+  }
+  </script>
+
+  <!-- WebSite Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Allen Jerries — Portfolio",
+    "url": "https://allen-portfolio-psi.vercel.app/",
+    "author": {
+      "@type": "Person",
+      "name": "Allen Jerries"
+    }
+  }
+  </script>
+
   <!-- Style Link -->
   <link rel="stylesheet" href="style.css">
 </head>
@@ -28,7 +91,8 @@
   </div>
 
   <!-- 3. Navigation Bar -->
-  <nav class="navbar">
+  <header>
+  <nav class="navbar" aria-label="Main navigation">
     <a href="#" class="nav-logo" rel="noopener">
       <div class="nav-logo-icon" style="background: var(--grad-primary);">A</div>
       <span>allen.dev</span>
@@ -53,8 +117,10 @@
       <span></span>
     </button>
   </nav>
+  </header>
 
   <!-- Main Container -->
+  <main>
   <div class="app-container">
 
     <!-- 4. Hero Section -->
@@ -127,7 +193,7 @@
             <div class="hero-card-footer">
               <div class="hero-card-profile">
                 <div class="profile-avatar-placeholder" style="background: var(--grad-primary); overflow: hidden; display: flex; align-items: center; justify-content: center;">
-                  <img src="profile.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" style="width: 100%; height: 100%; object-fit: cover;" alt="AJ">
+                  <img src="profile.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" style="width: 100%; height: 100%; object-fit: cover;" alt="Allen Jerries — Developer profile photo" width="948" height="948">
                   <span style="display: none; font-weight: 800; color: #fff;">AJ</span>
                 </div>
                 <div class="profile-info">
@@ -142,7 +208,7 @@
           <!-- Floating Photo Card -->
           <div class="hero-photo-card glass">
             <div class="photo-inner">
-              <img src="profile.jpg" id="profile-pic" onerror="this.style.display='none'; document.getElementById('profile-pic-fallback').style.display='flex';" alt="Allen Jerries A L">
+              <img src="profile.jpg" id="profile-pic" onerror="this.style.display='none'; document.getElementById('profile-pic-fallback').style.display='flex';" alt="Allen Jerries A L — Portfolio portrait" loading="lazy">
               <div class="photo-fallback" id="profile-pic-fallback">
                 <i data-lucide="user" style="width: 48px; height: 48px; color: var(--color-primary);"></i>
                 <span>ALLEN_JERRIES.JPG</span>
@@ -753,6 +819,7 @@
     </footer>
 
   </div>
+  </main>
 
   <!-- Lucide Icons Library -->
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -778,9 +845,9 @@
     });
   </script>
   <!-- EmailJS SDK -->
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
   <!-- Script File -->
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
 
   <!-- ════════════════════════════════════════════════════════════ -->
   <!-- MEET ALLEN AI — FLOATING ASSISTANT WIDGET                     -->
