@@ -76,68 +76,173 @@ function triggerHeroEntrance() {
 }
 
 /* ==========================================
-   2. Custom Inertial Cursor
+   2. Magnetic Digital Trail Cursor
    ========================================== */
 function initCustomCursor() {
-  const cursor = document.querySelector('.custom-cursor');
-  const follower = document.querySelector('.custom-cursor-follower');
-  
-  if (!cursor || !follower) return;
+  const canvas = document.getElementById('cursor-canvas');
+  const dot = document.querySelector('.cursor-dot');
+  if (!canvas || !dot) return;
 
-  // Check if touch device
+  // Touch device detection — disable entirely
   const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-  if (isTouchDevice) {
-    cursor.style.display = 'none';
-    follower.style.display = 'none';
+  const hasCoarsePointer = window.matchMedia('(hover: none)').matches;
+  if (isTouchDevice || hasCoarsePointer) {
+    canvas.style.display = 'none';
+    dot.style.display = 'none';
     return;
   }
 
-  let mouseX = 0, mouseY = 0; // Actual mouse position
-  let followerX = 0, followerY = 0; // Follower position with inertia
-  
-  // Track mouse coordinates
+  // Reduced motion — disable trail, keep dot only
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const ctx = canvas.getContext('2d');
+  let W, H;
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // Mouse state
+  let mouseX = -200, mouseY = -200;
+  let trailX = -200, trailY = -200;
+  const TRAIL_LERP = 0.12;
+
+  // Trail points history
+  const trail = [];
+  const TRAIL_LENGTH = 8;
+
+  // Click ripple
+  let ripple = { active: false, x: 0, y: 0, radius: 0, maxRadius: 32, opacity: 0 };
+
+  // Hover state
+  let hoverState = 'none';
+  let hoveredElement = null;
+
+  // Mouse move handler
   window.addEventListener('mousemove', (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
-    
-    // Position inner dot instantly
-    cursor.style.left = `${mouseX}px`;
-    cursor.style.top = `${mouseY}px`;
+    dot.style.left = `${mouseX}px`;
+    dot.style.top = `${mouseY}px`;
   });
 
-  // Follower spring interpolation
-  function updateFollower() {
-    const dx = mouseX - followerX;
-    const dy = mouseY - followerY;
-    
-    // Lower divisor = faster speed, higher = slower spring glide
-    followerX += dx * 0.15;
-    followerY += dy * 0.15;
-    
-    follower.style.left = `${followerX}px`;
-    follower.style.top = `${followerY}px`;
-    
-    requestAnimationFrame(updateFollower);
-  }
-  updateFollower();
+  // Click handler — trigger ripple
+  window.addEventListener('click', (e) => {
+    ripple = { active: true, x: e.clientX, y: e.clientY, radius: 0, maxRadius: 32, opacity: 0.5 };
+  });
 
-  // Hover states
+  // Hover state management
   const interactives = document.querySelectorAll('a, button, .filter-btn, .project-card, .hero-photo-card, .dna-tag, .social-btn');
   interactives.forEach(item => {
     item.addEventListener('mouseenter', () => {
+      hoveredElement = item;
       if (item.classList.contains('project-card') || item.classList.contains('hero-photo-card')) {
+        hoverState = 'view';
         document.body.classList.add('hovering-view');
       } else if (item.classList.contains('btn-magnetic')) {
+        hoverState = 'button';
         document.body.classList.add('hovering-button');
       } else {
+        hoverState = 'interactive';
         document.body.classList.add('hovering-interactive');
       }
     });
-    
+
     item.addEventListener('mouseleave', () => {
+      hoverState = 'none';
+      hoveredElement = null;
       document.body.classList.remove('hovering-interactive', 'hovering-button', 'hovering-view');
     });
   });
+
+  // Animation loop
+  let lastTrailTime = 0;
+
+  function animate(time) {
+    ctx.clearRect(0, 0, W, H);
+
+    // --- Trail interpolation ---
+    trailX += (mouseX - trailX) * TRAIL_LERP;
+    trailY += (mouseY - trailY) * TRAIL_LERP;
+
+    // Record trail points (subsampled for smooth density)
+    if (time - lastTrailTime > 3) {
+      trail.push({ x: trailX, y: trailY });
+      if (trail.length > TRAIL_LENGTH) trail.shift();
+      lastTrailTime = time;
+    }
+
+    // --- Draw trail ---
+    if (!prefersReducedMotion && trail.length > 1) {
+      for (let i = 0; i < trail.length; i++) {
+        const t = i / trail.length;
+        const radius = 1 + t * 2;
+        const alpha = t * 0.3;
+
+        ctx.beginPath();
+        ctx.arc(trail[i].x, trail[i].y, radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 69, 0, ${alpha})`;
+        ctx.fill();
+      }
+
+      // Connecting line through trail
+      if (trail.length > 2) {
+        ctx.beginPath();
+        ctx.moveTo(trail[0].x, trail[0].y);
+        for (let i = 1; i < trail.length; i++) {
+          ctx.lineTo(trail[i].x, trail[i].y);
+        }
+        ctx.strokeStyle = 'rgba(255, 69, 0, 0.1)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+    }
+
+    // --- Soft glow around trail head ---
+    if (!prefersReducedMotion) {
+      const glowRadius = hoverState === 'view' ? 28 : hoverState === 'button' ? 24 : 20;
+      const glowAlpha = hoverState === 'view' ? 0.12 : hoverState === 'button' ? 0.1 : 0.07;
+      const gradient = ctx.createRadialGradient(trailX, trailY, 0, trailX, trailY, glowRadius);
+      gradient.addColorStop(0, `rgba(255, 69, 0, ${glowAlpha})`);
+      gradient.addColorStop(1, 'rgba(255, 69, 0, 0)');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(trailX - glowRadius, trailY - glowRadius, glowRadius * 2, glowRadius * 2);
+    }
+
+    // --- Magnetic pull line on button hover ---
+    if (hoverState === 'button' && hoveredElement) {
+      const rect = hoveredElement.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      ctx.beginPath();
+      ctx.moveTo(mouseX, mouseY);
+      ctx.lineTo(cx, cy);
+      ctx.strokeStyle = 'rgba(255, 69, 0, 0.12)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+
+    // --- Click ripple ---
+    if (ripple.active) {
+      ripple.radius += (ripple.maxRadius - ripple.radius) * 0.15;
+      ripple.opacity *= 0.92;
+
+      if (ripple.opacity > 0.01) {
+        ctx.beginPath();
+        ctx.arc(ripple.x, ripple.y, ripple.radius, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(255, 69, 0, ${ripple.opacity})`;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+      } else {
+        ripple.active = false;
+      }
+    }
+
+    requestAnimationFrame(animate);
+  }
+  requestAnimationFrame(animate);
 }
 
 /* ==========================================
@@ -535,25 +640,6 @@ function initScrollAnimations() {
   }, { threshold: 0.5 });
 
   statNumbers.forEach(num => statsObserver.observe(num));
-
-  // Animate skill bars when Skills section comes in
-  const skillBars = document.querySelectorAll('.skill-bar-fill');
-  const skillsSection = document.getElementById('skills');
-
-  if (skillsSection && skillBars.length > 0) {
-    const skillsObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          skillBars.forEach(bar => {
-            const width = bar.getAttribute('data-percentage');
-            bar.style.width = `${width}%`;
-          });
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.2 });
-    skillsObserver.observe(skillsSection);
-  }
 
   // Smooth Scrollspy Link Active State Tracker
   const sections = document.querySelectorAll('section');

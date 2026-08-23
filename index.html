@@ -14,9 +14,9 @@
 </head>
 <body style="overflow-y: hidden;">
 
-  <!-- 1. Custom Mouse Cursor -->
-  <div class="custom-cursor"></div>
-  <div class="custom-cursor-follower"></div>
+  <!-- 1. Custom Cursor -->
+  <canvas class="cursor-canvas" id="cursor-canvas"></canvas>
+  <div class="cursor-dot"></div>
 
   <!-- 2. Terminal Preloader -->
   <div class="preloader" id="preloader">
@@ -541,7 +541,7 @@
           </div>
         </div>
 
-        <!-- Progress List side -->
+        <!-- Technology Stack Cards -->
         <div class="skills-grid">
           <!-- Card 1: Programming Languages -->
           <div class="reveal skill-category-card glass category-lang">
@@ -549,23 +549,14 @@
               <i data-lucide="code-2" style="width: 20px; height: 20px;"></i>
               <span>Programming Languages</span>
             </h3>
-            <div class="skill-list">
-              <div class="skill-item">
-                <div class="skill-item-info"><span>JavaScript (ES6) / TypeScript</span><span>92%</span></div>
-                <div class="skill-bar-bg"><div class="skill-bar-fill" data-percentage="92"></div></div>
-              </div>
-              <div class="skill-item">
-                <div class="skill-item-info"><span>Python</span><span>90%</span></div>
-                <div class="skill-bar-bg"><div class="skill-bar-fill" data-percentage="90"></div></div>
-              </div>
-              <div class="skill-item">
-                <div class="skill-item-info"><span>Kotlin / Java</span><span>86%</span></div>
-                <div class="skill-bar-bg"><div class="skill-bar-fill" data-percentage="86"></div></div>
-              </div>
-              <div class="skill-item">
-                <div class="skill-item-info"><span>C / C++ / SQL</span><span>84%</span></div>
-                <div class="skill-bar-bg"><div class="skill-bar-fill" data-percentage="84"></div></div>
-              </div>
+            <div class="tech-badges">
+              <span class="tech-badge"><i data-lucide="file-code-2" style="width: 14px; height: 14px;"></i> JavaScript</span>
+              <span class="tech-badge"><i data-lucide="file-code-2" style="width: 14px; height: 14px;"></i> TypeScript</span>
+              <span class="tech-badge"><i data-lucide="file-code-2" style="width: 14px; height: 14px;"></i> Python</span>
+              <span class="tech-badge"><i data-lucide="file-code-2" style="width: 14px; height: 14px;"></i> Kotlin</span>
+              <span class="tech-badge"><i data-lucide="file-code-2" style="width: 14px; height: 14px;"></i> C</span>
+              <span class="tech-badge"><i data-lucide="file-code-2" style="width: 14px; height: 14px;"></i> C++</span>
+              <span class="tech-badge"><i data-lucide="database" style="width: 14px; height: 14px;"></i> SQL</span>
             </div>
           </div>
 
@@ -575,23 +566,14 @@
               <i data-lucide="layers" style="width: 20px; height: 20px;"></i>
               <span>Frontend & Mobile</span>
             </h3>
-            <div class="skill-list">
-              <div class="skill-item">
-                <div class="skill-item-info"><span>React.js / Tailwind CSS</span><span>90%</span></div>
-                <div class="skill-bar-bg"><div class="skill-bar-fill" data-percentage="90"></div></div>
-              </div>
-              <div class="skill-item">
-                <div class="skill-item-info"><span>HTML5 & CSS3 / XML</span><span>94%</span></div>
-                <div class="skill-bar-bg"><div class="skill-bar-fill" data-percentage="94"></div></div>
-              </div>
-              <div class="skill-item">
-                <div class="skill-item-info"><span>Android Dev (Kotlin)</span><span>85%</span></div>
-                <div class="skill-bar-bg"><div class="skill-bar-fill" data-percentage="85"></div></div>
-              </div>
-              <div class="skill-item">
-                <div class="skill-item-info"><span>Flutter</span><span>80%</span></div>
-                <div class="skill-bar-bg"><div class="skill-bar-fill" data-percentage="80"></div></div>
-              </div>
+            <div class="tech-badges">
+              <span class="tech-badge"><i data-lucide="component" style="width: 14px; height: 14px;"></i> React.js</span>
+              <span class="tech-badge"><i data-lucide="wind" style="width: 14px; height: 14px;"></i> Tailwind CSS</span>
+              <span class="tech-badge"><i data-lucide="code" style="width: 14px; height: 14px;"></i> HTML5</span>
+              <span class="tech-badge"><i data-lucide="palette" style="width: 14px; height: 14px;"></i> CSS3</span>
+              <span class="tech-badge"><i data-lucide="file-text" style="width: 14px; height: 14px;"></i> XML</span>
+              <span class="tech-badge"><i data-lucide="smartphone" style="width: 14px; height: 14px;"></i> Android</span>
+              <span class="tech-badge"><i data-lucide="smartphone" style="width: 14px; height: 14px;"></i> Flutter</span>
             </div>
           </div>
 
@@ -601,49 +583,30 @@
               <i data-lucide="database" style="width: 20px; height: 20px;"></i>
               <span>Backend & Databases</span>
             </h3>
-            <div class="skill-list">
-              <div class="skill-item">
-                <div class="skill-item-info"><span>Node.js / Express.js / REST APIs</span><span>88%</span></div>
-                <div class="skill-bar-bg"><div class="skill-bar-fill" data-percentage="88"></div></div>
-              </div>
-              <div class="skill-item">
-                <div class="skill-item-info"><span>MongoDB / MongoDB Atlas</span><span>88%</span></div>
-                <div class="skill-bar-bg"><div class="skill-bar-fill" data-percentage="88"></div></div>
-              </div>
-              <div class="skill-item">
-                <div class="skill-item-info"><span>Firebase (Firestore)</span><span>84%</span></div>
-                <div class="skill-bar-bg"><div class="skill-bar-fill" data-percentage="84"></div></div>
-              </div>
-              <div class="skill-item">
-                <div class="skill-item-info"><span>MySQL</span><span>85%</span></div>
-                <div class="skill-bar-bg"><div class="skill-bar-fill" data-percentage="85"></div></div>
-              </div>
+            <div class="tech-badges">
+              <span class="tech-badge"><i data-lucide="server" style="width: 14px; height: 14px;"></i> Node.js</span>
+              <span class="tech-badge"><i data-lucide="server" style="width: 14px; height: 14px;"></i> Express.js</span>
+              <span class="tech-badge"><i data-lucide="globe" style="width: 14px; height: 14px;"></i> REST APIs</span>
+              <span class="tech-badge"><i data-lucide="database" style="width: 14px; height: 14px;"></i> MongoDB</span>
+              <span class="tech-badge"><i data-lucide="database" style="width: 14px; height: 14px;"></i> Firebase</span>
+              <span class="tech-badge"><i data-lucide="database" style="width: 14px; height: 14px;"></i> MySQL</span>
             </div>
           </div>
 
-          <!-- Card 4: Tools & AI Tools -->
+          <!-- Card 4: Tools & AI Development -->
           <div class="reveal skill-category-card glass category-core delay-1">
             <h3 class="skill-category-title" style="color: var(--color-orange);">
               <i data-lucide="cpu" style="width: 20px; height: 20px;"></i>
               <span>Tools & AI Development</span>
             </h3>
-            <div class="skill-list">
-              <div class="skill-item">
-                <div class="skill-item-info"><span>Ollama / Claude Code / AI Agents</span><span>90%</span></div>
-                <div class="skill-bar-bg"><div class="skill-bar-fill" data-percentage="90"></div></div>
-              </div>
-              <div class="skill-item">
-                <div class="skill-item-info"><span>LLM Integration / Prompt Eng.</span><span>88%</span></div>
-                <div class="skill-bar-bg"><div class="skill-bar-fill" data-percentage="88"></div></div>
-              </div>
-              <div class="skill-item">
-                <div class="skill-item-info"><span>Git & GitHub / Postman</span><span>92%</span></div>
-                <div class="skill-bar-bg"><div class="skill-bar-fill" data-percentage="92"></div></div>
-              </div>
-              <div class="skill-item">
-                <div class="skill-item-info"><span>Docker / Electron</span><span>82%</span></div>
-                <div class="skill-bar-bg"><div class="skill-bar-fill" data-percentage="82"></div></div>
-              </div>
+            <div class="tech-badges">
+              <span class="tech-badge"><i data-lucide="git-branch" style="width: 14px; height: 14px;"></i> Git</span>
+              <span class="tech-badge"><i data-lucide="github" style="width: 14px; height: 14px;"></i> GitHub</span>
+              <span class="tech-badge"><i data-lucide="send" style="width: 14px; height: 14px;"></i> Postman</span>
+              <span class="tech-badge"><i data-lucide="container" style="width: 14px; height: 14px;"></i> Docker</span>
+              <span class="tech-badge"><i data-lucide="brain" style="width: 14px; height: 14px;"></i> Ollama</span>
+              <span class="tech-badge"><i data-lucide="bot" style="width: 14px; height: 14px;"></i> Claude Code</span>
+              <span class="tech-badge"><i data-lucide="sparkles" style="width: 14px; height: 14px;"></i> AI Agents</span>
             </div>
           </div>
         </div>
