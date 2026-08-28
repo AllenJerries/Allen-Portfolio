@@ -688,8 +688,10 @@ function initScrollAnimations() {
 
   // Count up stats when in viewport
   const countUp = (element) => {
-    const target = parseInt(element.getAttribute('data-target'), 10);
+    const target = parseFloat(element.getAttribute('data-target')) || 0;
     const suffix = element.getAttribute('data-suffix') || '';
+    const hasDecimal = String(target).indexOf('.') !== -1;
+    const format = (n) => n.toFixed(hasDecimal ? 2 : 0);
     let count = 0;
     const duration = 2000; // 2 seconds
     const increment = target / (duration / 16); // ~60fps refresh rate
@@ -697,10 +699,10 @@ function initScrollAnimations() {
     const timer = setInterval(() => {
       count += increment;
       if (count >= target) {
-        element.textContent = target + suffix;
+        element.textContent = format(target) + suffix;
         clearInterval(timer);
       } else {
-        element.textContent = Math.floor(count) + suffix;
+        element.textContent = format(count) + suffix;
       }
     }, 16);
   };
