@@ -664,12 +664,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .photo-loc {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
+  line-height: 1;
   font-size: 0.75rem;
   color: var(--text-light);
   font-family: 'Fira Code', monospace;
+}
+
+.photo-loc i,
+.photo-loc svg {
+  flex: none;
+  display: block;
 }
 
 .photo-badge-label {
@@ -1417,6 +1424,17 @@ h1, h2, h3, h4, h5, h6 {
   color: #fff;
   font-size: 1.2rem;
   backdrop-filter: blur(8px);
+  flex-shrink: 0;
+}
+
+.contact-detail-icon i,
+.contact-detail-icon svg {
+  display: block;
+  flex: none;
+}
+
+.contact-detail-content {
+  line-height: 1.4;
 }
 
 .contact-detail-content span {
