@@ -72,6 +72,15 @@
   }
   </script>
 
+  <!-- Preconnects (AOT for fonts & CDNs) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+  <!-- Fonts (rendered via <link> instead of CSS @import for parallel discovery) -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap">
+
   <!-- Style Link -->
   <link rel="stylesheet" href="style.css">
 </head>
@@ -193,7 +202,7 @@
             <div class="hero-card-footer">
               <div class="hero-card-profile">
                 <div class="profile-avatar-placeholder" style="background: var(--grad-primary); overflow: hidden; display: flex; align-items: center; justify-content: center;">
-                  <img src="profile.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" style="width: 100%; height: 100%; object-fit: cover;" alt="Allen Jerries — Developer profile photo" width="948" height="948">
+                  <img src="profile.jpg" srcset="profile-200.jpg 200w, profile-480.jpg 480w, profile.jpg 948w" sizes="80px" decoding="async" fetchpriority="high" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" style="width: 100%; height: 100%; object-fit: cover;" alt="Allen Jerries — Developer profile photo" width="948" height="948">
                   <span style="display: none; font-weight: 800; color: #fff;">AJ</span>
                 </div>
                 <div class="profile-info">
@@ -208,7 +217,7 @@
           <!-- Floating Photo Card -->
           <div class="hero-photo-card glass">
             <div class="photo-inner">
-              <img src="profile.jpg" id="profile-pic" onerror="this.style.display='none'; document.getElementById('profile-pic-fallback').style.display='flex';" alt="Allen Jerries A L — Portfolio portrait" loading="lazy">
+              <img src="profile.jpg" srcset="profile-200.jpg 200w, profile-480.jpg 480w, profile.jpg 948w" sizes="(max-width: 768px) 250px, 208px" id="profile-pic" loading="eager" fetchpriority="high" decoding="async" width="948" height="948" onerror="this.style.display='none'; document.getElementById('profile-pic-fallback').style.display='flex';" alt="Allen Jerries A L — Portfolio portrait">
               <div class="photo-fallback" id="profile-pic-fallback">
                 <i data-lucide="user" style="width: 48px; height: 48px; color: var(--color-primary);"></i>
                 <span>ALLEN_JERRIES.JPG</span>
@@ -822,10 +831,20 @@
   </main>
 
   <!-- Lucide Icons Library -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/lucide@1.35.0" defer></script>
   <!-- Initialize icons -->
   <script>
-    lucide.createIcons();
+    function initPageUI() {
+      // Create Lucide icons once DOM + deferred lucide script are available
+      if (window.lucide) {
+        try { lucide.createIcons(); } catch (err) {}
+      }
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initPageUI);
+    } else {
+      initPageUI();
+    }
 
     // Mobile Navbar Menu Toggle Panel Drawer
     const mobileToggle = document.getElementById('mobile-nav-toggle');
@@ -946,6 +965,6 @@
   </div>
 
   <!-- Meet Allen AI Script -->
-  <script src="allen_ai.js"></script>
+  <script src="allen_ai.js" defer></script>
 </body>
 </html>

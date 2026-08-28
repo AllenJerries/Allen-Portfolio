@@ -102,7 +102,7 @@ function initCustomCursor() {
     H = canvas.height = window.innerHeight;
   }
   resize();
-  window.addEventListener('resize', resize);
+  window.addEventListener('resize', resize, { passive: true });
 
   // Mouse state
   let mouseX = -200, mouseY = -200;
@@ -126,12 +126,12 @@ function initCustomCursor() {
     mouseY = e.clientY;
     dot.style.left = `${mouseX}px`;
     dot.style.top = `${mouseY}px`;
-  });
+  }, { passive: true });
 
   // Click handler — trigger ripple
   window.addEventListener('click', (e) => {
     ripple = { active: true, x: e.clientX, y: e.clientY, radius: 0, maxRadius: 32, opacity: 0.5 };
-  });
+  }, { passive: true });
 
   // Hover state management
   const interactives = document.querySelectorAll('a, button, .filter-btn, .project-card, .hero-photo-card, .dna-tag, .social-btn');
@@ -242,7 +242,7 @@ function initCustomCursor() {
 
     requestAnimationFrame(animate);
   }
-  requestAnimationFrame(animate);
+  if (!prefersReducedMotion) requestAnimationFrame(animate);
 }
 
 /* ==========================================
@@ -253,8 +253,15 @@ function initHeroCanvas() {
   if (!canvas) return;
 
   const ctx = canvas.getContext('2d');
-  let width = canvas.width = canvas.offsetWidth;
-  let height = canvas.height = canvas.offsetHeight;
+  const isCoarse = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+  let width = canvas.offsetWidth;
+  let height = canvas.offsetHeight;
+  canvas.width = width * dpr;
+  canvas.height = height * dpr;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
   const particles = [];
   const charSet = ['0', '1', '{', '}', '<', '>', '++', ';'];
@@ -266,7 +273,7 @@ function initHeroCanvas() {
     const rect = canvas.getBoundingClientRect();
     mouse.x = e.clientX - rect.left;
     mouse.y = e.clientY - rect.top;
-  });
+  }, { passive: true });
 
   window.addEventListener('mouseleave', () => {
     mouse.x = null;
@@ -274,9 +281,12 @@ function initHeroCanvas() {
   });
 
   window.addEventListener('resize', () => {
-    width = canvas.width = canvas.offsetWidth;
-    height = canvas.height = canvas.offsetHeight;
-  });
+    width = canvas.offsetWidth;
+    height = canvas.offsetHeight;
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }, { passive: true });
 
   // Particle Class
   class Particle {
@@ -333,20 +343,47 @@ function initHeroCanvas() {
 
   // Create initial particles
   const particleCount = Math.floor((width * height) / 18000);
-  for (let i = 0; i < Math.min(particleCount, 80); i++) {
+  for (let i = 0; i < Math.min(particleCount, isCoarse ? 40 : 80); i++) {
     particles.push(new Particle());
   }
 
-  // Loop
+  // Loop (paused when hero is scrolled out of view to save battery/CPU)
+  let rafId = null;
+  let running = false;
+
   function animate() {
     ctx.clearRect(0, 0, width, height);
     particles.forEach(p => {
       p.update();
       p.draw();
     });
-    requestAnimationFrame(animate);
+    rafId = requestAnimationFrame(animate);
   }
-  animate();
+
+  function startAnim() {
+    if (!running) {
+      running = true;
+      rafId = requestAnimationFrame(animate);
+    }
+  }
+
+  function stopAnim() {
+    running = false;
+    if (rafId) cancelAnimationFrame(rafId);
+  }
+
+  if (reducedMotion) {
+    animate(); // draw a single static frame, then stop
+    stopAnim();
+  } else if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => entry.isIntersecting ? startAnim() : stopAnim());
+    }, { threshold: 0.01 });
+    observer.observe(canvas);
+    if (canvas.getBoundingClientRect().top < window.innerHeight) startAnim();
+  } else {
+    startAnim();
+  }
 }
 
 /* ==========================================
@@ -357,8 +394,14 @@ function initSkillsCanvas() {
   if (!canvas) return;
 
   const ctx = canvas.getContext('2d');
-  let width = canvas.width = canvas.offsetWidth;
-  let height = canvas.height = canvas.offsetHeight;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+  let width = canvas.offsetWidth;
+  let height = canvas.offsetHeight;
+  canvas.width = width * dpr;
+  canvas.height = height * dpr;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
   let mouse = { x: null, y: null, radius: 150 };
   const rect = canvas.getBoundingClientRect();
@@ -367,7 +410,7 @@ function initSkillsCanvas() {
     const r = canvas.getBoundingClientRect();
     mouse.x = e.clientX - r.left;
     mouse.y = e.clientY - r.top;
-  });
+  }, { passive: true });
 
   canvas.addEventListener('mouseleave', () => {
     mouse.x = null;
@@ -375,9 +418,12 @@ function initSkillsCanvas() {
   });
 
   window.addEventListener('resize', () => {
-    width = canvas.width = canvas.offsetWidth;
-    height = canvas.height = canvas.offsetHeight;
-  });
+    width = canvas.offsetWidth;
+    height = canvas.offsetHeight;
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }, { passive: true });
 
   // Nodes for core skills (matching latest resume tech stack)
   const skillsData = [
@@ -522,15 +568,43 @@ function initSkillsCanvas() {
       node.update();
       node.draw();
     });
-    requestAnimationFrame(loop);
+    rafId = requestAnimationFrame(loop);
   }
-  loop();
+
+  let rafId = null;
+  let running = false;
+
+  function startAnim() {
+    if (!running) {
+      running = true;
+      rafId = requestAnimationFrame(loop);
+    }
+  }
+
+  function stopAnim() {
+    running = false;
+    if (rafId) cancelAnimationFrame(rafId);
+  }
+
+  if (reducedMotion) {
+    loop();      // render a single static frame
+    stopAnim();
+  } else if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => entry.isIntersecting ? startAnim() : stopAnim());
+    }, { threshold: 0.01 });
+    observer.observe(canvas);
+    if (canvas.getBoundingClientRect().top < window.innerHeight) startAnim();
+  } else {
+    startAnim();
+  }
 }
 
 /* ==========================================
    5. 3D Card Tilt Effect
    ========================================== */
 function initTiltEffect() {
+  if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) return; // touch: skip 3D tilt
   const cards = document.querySelectorAll('.hero-interactive-card, .hero-photo-card, .project-card, .bento-card:not(.bento-stats)');
 
   cards.forEach(card => {
@@ -564,6 +638,7 @@ function initTiltEffect() {
    6. Magnetic Button Physics
    ========================================== */
 function initMagneticButtons() {
+  if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) return; // touch: skip magnetic pull
   const magneticWrappers = document.querySelectorAll('.btn-magnetic-container');
 
   magneticWrappers.forEach(wrapper => {
@@ -641,26 +716,33 @@ function initScrollAnimations() {
 
   statNumbers.forEach(num => statsObserver.observe(num));
 
-  // Smooth Scrollspy Link Active State Tracker
+  // Smooth Scrollspy Link Active State Tracker (rAF-throttled)
   const sections = document.querySelectorAll('section');
   const navLinks = document.querySelectorAll('.nav-link');
 
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(sec => {
-      const top = sec.offsetTop - 150;
-      if (pageYOffset >= top) {
-        current = sec.getAttribute('id');
-      }
-    });
+  let scrollTicking = false;
+  const handleScroll = () => {
+    if (scrollTicking) return;
+    scrollTicking = true;
+    requestAnimationFrame(() => {
+      let current = '';
+      sections.forEach(sec => {
+        const top = sec.offsetTop - 150;
+        if (pageYOffset >= top) {
+          current = sec.getAttribute('id');
+        }
+      });
 
-    navLinks.forEach(link => {
-      link.classList.remove('active');
-      if (link.getAttribute('href') === `#${current}`) {
-        link.classList.add('active');
-      }
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+          link.classList.add('active');
+        }
+      });
+      scrollTicking = false;
     });
-  });
+  };
+  window.addEventListener('scroll', handleScroll, { passive: true });
 }
 
 /* ==========================================
