@@ -403,6 +403,13 @@ function initSkillsCanvas() {
   canvas.height = height * dpr;
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
+  // Responsive scale: full size at typical desktop/tablet container widths,
+  // and shrink only on narrow (phone) containers so nodes stay readable and inside bounds.
+  function getGraphScale() {
+    return Math.min(Math.max(width / 480, 0.62), 1);
+  }
+  let gScale = getGraphScale();
+
   let mouse = { x: null, y: null, radius: 150 };
   const rect = canvas.getBoundingClientRect();
 
@@ -423,34 +430,33 @@ function initSkillsCanvas() {
     canvas.width = width * dpr;
     canvas.height = height * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    gScale = getGraphScale();
+    nodes.forEach(clampNode);
   }, { passive: true });
 
   // Nodes for core skills (matching latest resume tech stack)
   const skillsData = [
     { label: 'JavaScript', category: 'lang', size: 16 },
-    { label: 'TypeScript', category: 'lang', size: 14 },
+    { label: 'TypeScript', category: 'lang', size: 15 },
     { label: 'Python', category: 'lang', size: 15 },
-    { label: 'Kotlin', category: 'lang', size: 14 },
     { label: 'Java', category: 'lang', size: 14 },
-    { label: 'C++', category: 'lang', size: 13 },
-    { label: 'SQL', category: 'lang', size: 12 },
+    { label: 'Kotlin', category: 'lang', size: 14 },
     { label: 'React.js', category: 'web', size: 15 },
-    { label: 'Tailwind CSS', category: 'web', size: 13 },
+    { label: 'React Native', category: 'web', size: 14 },
     { label: 'Flutter', category: 'web', size: 14 },
-    { label: 'Android Dev', category: 'web', size: 14 },
     { label: 'Node.js', category: 'web', size: 15 },
     { label: 'Express.js', category: 'web', size: 13 },
-    { label: 'REST APIs', category: 'web', size: 14 },
-    { label: 'MongoDB Atlas', category: 'core', size: 14 },
-    { label: 'Firestore', category: 'core', size: 13 },
+    { label: 'FastAPI', category: 'web', size: 13 },
+    { label: 'Electron', category: 'web', size: 13 },
+    { label: 'MongoDB', category: 'core', size: 14 },
     { label: 'MySQL', category: 'core', size: 12 },
-    { label: 'Claude Code', category: 'tools', size: 14 },
-    { label: 'AI Agents', category: 'tools', size: 15 },
-    { label: 'Prompt Eng.', category: 'tools', size: 13 },
-    { label: 'Ollama / LLMs', category: 'tools', size: 14 },
-    { label: 'Docker', category: 'tools', size: 12 },
+    { label: 'Firebase', category: 'core', size: 13 },
     { label: 'Git / GitHub', category: 'tools', size: 13 },
-    { label: 'Electron', category: 'tools', size: 13 }
+    { label: 'Docker', category: 'tools', size: 12 },
+    { label: 'Ollama', category: 'tools', size: 14 },
+    { label: 'LangChain', category: 'tools', size: 15 },
+    { label: 'LangGraph', category: 'tools', size: 14 },
+    { label: 'AI Agents', category: 'tools', size: 15 }
   ];
 
   class SkillNode {
@@ -467,6 +473,8 @@ function initSkillsCanvas() {
       
       this.originalSize = this.size;
       this.hoverScale = 1;
+      this.labelW = 0;
+      this.fontSize = 11;
 
       // Color coding matching CSS colors
       if (this.category === 'lang') this.color = '#ff4500';
@@ -479,18 +487,26 @@ function initSkillsCanvas() {
       this.x += this.vx;
       this.y += this.vy;
 
-      // Boundary collision
-      if (this.x < 30 || this.x > width - 30) this.vx *= -1;
-      if (this.y < 30 || this.y > height - 30) this.vy *= -1;
+      // Scale-aware, label-aware boundary collision
+      const radius = this.originalSize * gScale;
+      const half = Math.max((this.labelW || 22) / 2, radius + 4) + 4;
+      const topPad = radius + this.fontSize + 10;
+
+      if (this.x < half) { this.x = half; this.vx = Math.abs(this.vx); }
+      else if (this.x > width - half) { this.x = width - half; this.vx = -Math.abs(this.vx); }
+
+      if (this.y < topPad) { this.y = topPad; this.vy = Math.abs(this.vy); }
+      else if (this.y > height - 18) { this.y = height - 18; this.vy = -Math.abs(this.vy); }
 
       // Mouse proximity interaction (attraction and scale)
       if (mouse.x !== null && mouse.y !== null) {
         const dx = mouse.x - this.x;
         const dy = mouse.y - this.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
+        const hoverRadius = mouse.radius * gScale;
 
-        if (dist < mouse.radius) {
-          const force = (mouse.radius - dist) / mouse.radius;
+        if (dist < hoverRadius) {
+          const force = (hoverRadius - dist) / hoverRadius;
           // Pull gently toward mouse
           this.x += (dx / dist) * force * 1.5;
           this.y += (dy / dist) * force * 1.5;
@@ -504,12 +520,13 @@ function initSkillsCanvas() {
     }
 
     draw() {
-      const currentRadius = this.originalSize * this.hoverScale;
-      
+      const currentRadius = this.originalSize * gScale * this.hoverScale;
+      this.fontSize = Math.max(7, Math.round(11 * gScale));
+
       // Node glow effect on hover
       if (this.hoverScale > 1) {
         ctx.beginPath();
-        ctx.arc(this.x, this.y, currentRadius + 8, 0, Math.PI * 2);
+        ctx.arc(this.x, this.y, currentRadius + 8 * gScale, 0, Math.PI * 2);
         ctx.fillStyle = `${this.color}15`;
         ctx.fill();
       }
@@ -525,8 +542,9 @@ function initSkillsCanvas() {
 
       // Label details
       ctx.fillStyle = '#0c0f24';
-      ctx.font = `600 ${11 + (this.hoverScale - 1) * 3}px 'Outfit', sans-serif`;
+      ctx.font = `600 ${this.fontSize + (this.hoverScale - 1) * 3}px 'Outfit', sans-serif`;
       ctx.textAlign = 'center';
+      this.labelW = ctx.measureText(this.label).width;
       ctx.fillText(this.label, this.x, this.y - currentRadius - 8);
     }
   }
@@ -538,6 +556,15 @@ function initSkillsCanvas() {
     const y = Math.random() * (height - 100) + 50;
     nodes.push(new SkillNode(skill, x, y));
   });
+
+  // Keep every node (and its label) inside the container after resize
+  function clampNode(node) {
+    const radius = node.originalSize * gScale;
+    const half = Math.max((node.labelW || 22) / 2, radius + 4) + 4;
+    const topPad = radius + (node.fontSize || 11) + 10;
+    node.x = Math.min(Math.max(node.x, half), Math.max(half, width - half));
+    node.y = Math.min(Math.max(node.y, topPad), Math.max(topPad, height - 18));
+  }
 
   function drawLines() {
     for (let i = 0; i < nodes.length; i++) {

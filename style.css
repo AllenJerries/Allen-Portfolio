@@ -1777,6 +1777,35 @@ textarea.form-input {
   }
 }
 
+/* Skills Blueprint — responsive fit only (keeps desktop design unchanged) */
+@media (max-width: 640px) {
+  .skills-container {
+    gap: 20px;
+  }
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .skill-category-card {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .skill-category-card {
+    padding: 18px;
+  }
+  .skill-category-title {
+    font-size: 1.02rem;
+    margin-bottom: 12px;
+  }
+  .tech-badge {
+    padding: 6px 10px;
+    font-size: 0.75rem;
+    gap: 5px;
+  }
+}
+
 /* ==========================================
    MEET ALLEN AI — FLOATING ASSISTANT STYLES
    ========================================== */
