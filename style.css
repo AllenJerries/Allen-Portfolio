@@ -1150,14 +1150,15 @@ h1, h2, h3, h4, h5, h6 {
 /* Skills Canvas Grid Styling */
 .skills-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1.1fr;
   gap: 40px;
-  align-items: center;
+  align-items: stretch;
 }
 
 .skills-interactive-area {
   position: relative;
-  height: 480px;
+  height: 100%;
+  min-height: 600px;
   border-radius: var(--radius-lg);
   overflow: hidden;
   background-color: var(--bg-secondary);
@@ -1288,6 +1289,31 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 4px 16px rgba(255, 180, 50, 0.12);
 }
 .category-core .tech-badge:hover svg { color: var(--color-orange); }
+
+/* Skills section — anchor clears the floating navbar */
+#skills {
+  scroll-margin-top: 120px;
+}
+
+/* Independent skill cards — subtle premium hover lift.
+   Re-declared transition so the reveal entrance stays smooth
+   while hover transform/glow animates quickly. */
+.skill-category-card.reveal.revealed {
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+@media (hover: hover) {
+  .skill-category-card.reveal:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 69, 0, 0.4);
+    box-shadow: 0 18px 40px rgba(255, 69, 0, 0.1), var(--shadow-inset);
+    background-color: var(--card-hover-bg);
+  }
+}
 
 /* Timeline Section (Horizontal) */
 .timeline-horizontal {
@@ -1710,6 +1736,11 @@ textarea.form-input {
   
   .skills-container {
     grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .skills-interactive-area {
+    min-height: 0;
+    height: 460px;
   }
   
   .contact-grid {
@@ -1782,6 +1813,9 @@ textarea.form-input {
   .skills-container {
     gap: 20px;
   }
+  .skills-interactive-area {
+    height: 430px;
+  }
   .skills-grid {
     grid-template-columns: 1fr;
     gap: 16px;
@@ -1792,6 +1826,9 @@ textarea.form-input {
 }
 
 @media (max-width: 480px) {
+  #skills {
+    scroll-margin-top: 100px;
+  }
   .skill-category-card {
     padding: 18px;
   }

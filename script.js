@@ -406,7 +406,7 @@ function initSkillsCanvas() {
   // Responsive scale: full size at typical desktop/tablet container widths,
   // and shrink only on narrow (phone) containers so nodes stay readable and inside bounds.
   function getGraphScale() {
-    return Math.min(Math.max(width / 480, 0.62), 1);
+    return Math.min(Math.max(width / 480, 0.66), 1);
   }
   let gScale = getGraphScale();
 
@@ -424,9 +424,26 @@ function initSkillsCanvas() {
     mouse.y = null;
   });
 
+  let prevWidth = width;
+  let prevHeight = height;
+
   window.addEventListener('resize', () => {
-    width = canvas.offsetWidth;
-    height = canvas.offsetHeight;
+    const newWidth = canvas.offsetWidth;
+    const newHeight = canvas.offsetHeight;
+
+    // Reposition nodes proportionally into the new space so the graph reflows
+    // (e.g. desktop two-column to stacked mobile) instead of squeezing a fixed layout.
+    if (prevWidth && prevHeight) {
+      nodes.forEach(node => {
+        node.x = (node.x / prevWidth) * newWidth;
+        node.y = (node.y / prevHeight) * newHeight;
+      });
+    }
+
+    width = newWidth;
+    height = newHeight;
+    prevWidth = width;
+    prevHeight = height;
     canvas.width = width * dpr;
     canvas.height = height * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -447,9 +464,7 @@ function initSkillsCanvas() {
     { label: 'Node.js', category: 'web', size: 15 },
     { label: 'Express.js', category: 'web', size: 13 },
     { label: 'FastAPI', category: 'web', size: 13 },
-    { label: 'Electron', category: 'web', size: 13 },
     { label: 'MongoDB', category: 'core', size: 14 },
-    { label: 'MySQL', category: 'core', size: 12 },
     { label: 'Firebase', category: 'core', size: 13 },
     { label: 'Git / GitHub', category: 'tools', size: 13 },
     { label: 'Docker', category: 'tools', size: 12 },
@@ -496,7 +511,7 @@ function initSkillsCanvas() {
       else if (this.x > width - half) { this.x = width - half; this.vx = -Math.abs(this.vx); }
 
       if (this.y < topPad) { this.y = topPad; this.vy = Math.abs(this.vy); }
-      else if (this.y > height - 18) { this.y = height - 18; this.vy = -Math.abs(this.vy); }
+      else if (this.y > height - 50) { this.y = height - 50; this.vy = -Math.abs(this.vy); }
 
       // Mouse proximity interaction (attraction and scale)
       if (mouse.x !== null && mouse.y !== null) {
@@ -563,7 +578,7 @@ function initSkillsCanvas() {
     const half = Math.max((node.labelW || 22) / 2, radius + 4) + 4;
     const topPad = radius + (node.fontSize || 11) + 10;
     node.x = Math.min(Math.max(node.x, half), Math.max(half, width - half));
-    node.y = Math.min(Math.max(node.y, topPad), Math.max(topPad, height - 18));
+    node.y = Math.min(Math.max(node.y, topPad), Math.max(topPad, height - 50));
   }
 
   function drawLines() {
