@@ -1702,8 +1702,10 @@ textarea.form-input {
     height: auto;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 24px;
     align-items: center;
+    max-width: 400px;
+    margin: 0 auto;
   }
   .hero-interactive-card, .hero-photo-card {
     position: relative !important;
@@ -1715,13 +1717,16 @@ textarea.form-input {
   }
   .hero-interactive-card {
     width: 100%;
-    max-width: 380px;
-    height: 400px;
+    max-width: 360px;
+    height: auto;
+    min-height: 320px;
+    padding: 26px;
   }
   .hero-photo-card {
     width: 100%;
-    max-width: 280px;
-    height: 340px;
+    max-width: 260px;
+    height: auto;
+    padding: 14px;
   }
   
   .projects-grid {
@@ -1746,6 +1751,26 @@ textarea.form-input {
   .contact-grid {
     grid-template-columns: 1fr;
     gap: 32px;
+  }
+}
+
+/* Hero visual — mid-desktop band: keep the terminal/photo overlap but shrink
+   it proportionally so the absolute-positioned cards never outgrow the
+   narrower right-hand hero column between the ~993px stack and full desktop. */
+@media (min-width: 993px) and (max-width: 1199px) {
+  .hero-card-container {
+    max-width: 400px;
+    height: 436px;
+  }
+  .hero-interactive-card {
+    width: 340px;
+    height: auto;
+    padding: 26px;
+  }
+  .hero-photo-card {
+    width: 220px;
+    height: 280px;
+    padding: 14px;
   }
 }
 
@@ -1779,6 +1804,16 @@ textarea.form-input {
 }
 
 @media (max-width: 480px) {
+  .hero-card-container {
+    gap: 20px;
+  }
+  .hero-interactive-card {
+    max-width: 100%;
+    padding: 22px;
+  }
+  .hero-photo-card {
+    max-width: 100%;
+  }
   .hero-title {
     font-size: 2.4rem;
     letter-spacing: -1px;
